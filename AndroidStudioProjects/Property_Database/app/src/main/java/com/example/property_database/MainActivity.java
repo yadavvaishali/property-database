@@ -6,6 +6,7 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -24,7 +25,7 @@ public class MainActivity extends AppCompatActivity implements OnItemSelectedLis
     Spinner spinner,spinner2,spinner3;
     ArrayList<String> categories,categories2,categories3;
     Button details,otherentires;
-    EditText name,location;
+    EditText name,location,plotdimension;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements OnItemSelectedLis
         categories2.add("HOUSE");
         categories3.add("DUPLEX");
         categories3.add("SINGLE");
-        categories3.add("24X41");
+
 
         // Spinner element
          spinner = (Spinner) findViewById(R.id.spinner1);
@@ -49,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements OnItemSelectedLis
          otherentires=(Button)findViewById(R.id.otherentries);
          name=(EditText)findViewById(R.id.txtName);
          location=(EditText)findViewById(R.id.location);
+        plotdimension=(EditText)findViewById(R.id.plotdimension);
 
 
 
@@ -58,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements OnItemSelectedLis
         // Spinner click listener
        spinner.setOnItemSelectedListener(this);
        spinner2.setOnItemSelectedListener(this);
-        spinner3.setOnItemSelectedListener(this);
+       spinner3.setOnItemSelectedListener(this);
 
 
 
@@ -80,11 +82,13 @@ public class MainActivity extends AppCompatActivity implements OnItemSelectedLis
         // attaching data adapter to spinner
         spinner.setAdapter(dataAdapter);
         spinner2.setAdapter(dataAdapter2);
-       spinner3.setAdapter(dataAdapter3);
+        spinner3.setAdapter(dataAdapter3);
+
+
 otherentires.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View view) {
-        if(name.length()==0 && location.length()==0)
+        if(name.length()==0 || location.length()==0 || plotdimension.length()==0)
         {
             Toast.makeText(getApplicationContext(),
                     "Mandatory fields",
@@ -104,7 +108,27 @@ otherentires.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
+            final boolean house;
+        if (spinner2.getSelectedItem().toString().equals("HOUSE")){
+            house = true;
+           plotdimension.setVisibility(View.GONE);
+           spinner3.setVisibility(View.VISIBLE);
+           plotdimension.setText("");
+
+        }
+
+        else { house = false;
+            spinner3.setVisibility(View.GONE);
+            spinner3.setAdapter(dataAdapter3);
+            plotdimension.setVisibility(View.VISIBLE);
+
+        }
+
+
     }
+
+
+
 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {

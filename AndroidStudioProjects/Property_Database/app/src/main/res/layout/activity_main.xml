@@ -120,8 +120,20 @@
             android:layout_marginLeft="60dp"
             android:layout_marginTop="30dp"
             android:text=":"/>
+        <EditText
+            android:id="@+id/plotdimension"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="5dp"
+            android:ems="10"
+            android:hint="24x10"
+            android:inputType="text"
+
+            />
         <Spinner
             android:id="@+id/spinner3"
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
